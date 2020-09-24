@@ -71,6 +71,8 @@ int main()
 
   /* Set the seed of the random number generator. */
   random_generator_initialize(RANDOM_SEED);
+
+  // Change the variable in the for loop for desired experiment parameters
   for (int NUMBER_TO_SERVE = 10000; NUMBER_TO_SERVE < 60000; NUMBER_TO_SERVE = NUMBER_TO_SERVE+10000)
   {
     /* Process customers until we are finished. */
