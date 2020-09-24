@@ -1,0 +1,1 @@
+gcc -g -o coe4dk4_lab_1_2020 coe4dk4_lab_1_2020.c simlib.c
