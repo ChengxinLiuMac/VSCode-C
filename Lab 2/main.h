@@ -42,6 +42,7 @@ typedef struct _simulation_run_data_
   long int arrival_count;
   long int number_of_packets_processed;
   double accumulated_delay;
+  double accumulated_delay_s1;
   unsigned random_seed;
 
 } Simulation_Run_Data, * Simulation_Run_Data_Ptr;
@@ -53,6 +54,7 @@ typedef struct _packet_
   double arrive_time;
   double service_time;
   int source_id;
+  int source_server;
   int destination_id;
   Packet_Status status;
 } Packet, * Packet_Ptr;

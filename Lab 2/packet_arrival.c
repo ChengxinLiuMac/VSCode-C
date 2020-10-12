@@ -83,6 +83,7 @@ packet_arrival_event(Simulation_Run_Ptr simulation_run, Simulation_Run_Ptr simul
   new_packet = (Packet_Ptr) xmalloc(sizeof(Packet));
   new_packet->arrive_time = simulation_run_get_time(simulation_run);
   new_packet->service_time = get_packet_transmission_time();
+  new_packet->source_server = 1;
   new_packet->status = WAITING;
 
   /* 
@@ -110,19 +111,15 @@ packet_arrival_event2(Simulation_Run_Ptr simulation_run2,
 {
 
   Simulation_Run_Data_Ptr data2;
-  Packet_Ptr new_packet, new_packet2;
+  Packet_Ptr new_packet;
 
   data2 = (Simulation_Run_Data_Ptr) simulation_run_data(simulation_run2);
   data2->arrival_count++;
   new_packet = (Packet_Ptr) xmalloc(sizeof(Packet));
   new_packet->arrive_time = simulation_run_get_time(simulation_run2);
   new_packet->service_time = get_packet_transmission_time();
+  new_packet->source_server = 2;
   new_packet->status = WAITING;
-
-  new_packet2->arrive_time = simulation_run_get_time(simulation_run2);
-  new_packet2->service_time = get_packet_transmission_time();
-  new_packet2->status = WAITING;
-  fifoqueue_put(data2->buffer, (void*) new_packet2);
 
   /* 
    * Start transmission if the data link is free. Otherwise put the packet into

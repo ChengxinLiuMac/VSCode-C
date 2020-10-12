@@ -47,10 +47,10 @@ int main()
 {
   Simulation_Run_Ptr simulation_run;
   Simulation_Run_Ptr simulation_run2;
-  Simulation_Run_Ptr simulation_run3;
+  // Simulation_Run_Ptr simulation_run3;
   Simulation_Run_Data data;
   Simulation_Run_Data data2;
-  Simulation_Run_Data data3;
+ // Simulation_Run_Data data3;
 
 
   /*
@@ -74,14 +74,14 @@ int main()
 
 			simulation_run = simulation_run_new(); /* Create a new simulation run. */
 			simulation_run2 = simulation_run_new(); /* Create a new simulation run. */
-			simulation_run3 = simulation_run_new(); /* Create a new simulation run. */
+			// simulation_run3 = simulation_run_new(); /* Create a new simulation run. */
 
 		  /*
 		   * Set the simulation_run data pointer to our data object.
 		   */
 
-		  simulation_run_attach_data(simulation_run, (void *)& data);
-		  simulation_run_attach_data(simulation_run2, (void *)& data2);
+		  	simulation_run_attach_data(simulation_run, (void *)& data);
+		  	simulation_run_attach_data(simulation_run2, (void *)& data2);
 		  /*
 		   * Initialize the simulation_run data variables, declared in main.h.
 		   */
@@ -101,7 +101,8 @@ int main()
       		data2.accumulated_delay = 0.0;
 			data2.arrival_rate = 500;
 			data2.random_seed = random_seed;
-
+			
+			/*
       		data3.blip_counter = 0;
 			data3.arrival_count = 0;
       		// data3.over20_packet_count = 0;
@@ -109,10 +110,11 @@ int main()
       		data3.accumulated_delay = 0.0;
 			data3.arrival_rate = 500;
 			data3.random_seed = random_seed;
+			*/
 
 			printf("current data1 rate is %d \n" , data.arrival_rate);
       		printf("current data2 rate is %d \n" , data2.arrival_rate);
-      		printf("current data3 rate is %d \n" , data3.arrival_rate);
+      		// printf("current data3 rate is %d \n" , data3.arrival_rate);
 
 		  /*
 		   * Create the packet buffer and transmission link, declared in main.h.
@@ -122,8 +124,8 @@ int main()
 			data.link = server_new();
       		data2.buffer = fifoqueue_new();
 			data2.link = server_new();
-      		data3.buffer = fifoqueue_new();
-			data3.link = server_new();
+      		//data3.buffer = fifoqueue_new();
+			//data3.link = server_new();
 
 		  /*
 		   * Set the random number generator seed for this run.

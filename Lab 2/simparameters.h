@@ -28,13 +28,13 @@
 /******************************************************************************/
 
 
-//#define PACKET_LENGTH 1000 /* bits */
-#define PACKET_LENGTH 1 /* bits */
+#define PACKET_LENGTH 1000 /* bits */
+// #define PACKET_LENGTH 1 /* bits */
 #define LINK_BIT_RATE 1e6 /* Link1 bits per second */
 #define LINK2_BIT_RATE 2e6 /* Link2 bits per second */
 #define LINK3_BIT_RATE 3e6 /* Link3 bits per second */
-#define RUNLENGTH 10 /* packets */
-//#define RUNLENGTH 10e6 /* packets */
+// #define RUNLENGTH 10 /* packets */
+#define RUNLENGTH 10e6 /* packets */
 
 /* Comma separated list of random seeds to run. */
 #define RANDOM_SEED_LIST 400022365

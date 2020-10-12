@@ -82,12 +82,12 @@ end_packet_transmission_event(Simulation_Run_Ptr simulation_run,
       void * link)
 {
   Simulation_Run_Data_Ptr data, data2;
-  Packet_Ptr this_packet, next_packet;
+  Packet_Ptr this_packet,next_packet;
 
   TRACE(printf("End Of Packet.\n"););
 
   data = (Simulation_Run_Data_Ptr) simulation_run_data(simulation_run);
-  data2 = (Simulation_Run_Data_Ptr) simulation_run_data(simulation_run);
+  data2 = (Simulation_Run_Data_Ptr) simulation_run_data(simulation_run2);
 
   /* 
    * Packet transmission is finished. Take the packet off the data link.
@@ -103,9 +103,6 @@ end_packet_transmission_event(Simulation_Run_Ptr simulation_run,
     data->over20_packet_count++;
   }
   */
-  data->accumulated_delay += simulation_run_get_time(simulation_run) - 
-    this_packet->arrive_time;
-  data2->accumulated_delay = data->accumulated_delay;
 
   /* Output activity blip every so often. */
   output_progress_msg_to_screen(simulation_run);
@@ -149,8 +146,16 @@ end_packet_transmission_event2(Simulation_Run_Ptr simulation_run2, void * link)
       data2->over20_packet_count++;
     }
     */
-    data2->accumulated_delay += simulation_run_get_time(simulation_run2) - 
-      this_packet->arrive_time;
+    if(this_packet->source_server == 1)
+    {
+      data2->accumulated_delay_s1 += simulation_run_get_time(simulation_run2) - 
+        this_packet->arrive_time;
+    }
+    else
+    {
+      data2->accumulated_delay += simulation_run_get_time(simulation_run2) - 
+        this_packet->arrive_time;
+    }
 
   /* Output activity blip every so often. */
     output_progress_msg_to_screen(simulation_run2);
