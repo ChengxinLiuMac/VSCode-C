@@ -3,7 +3,7 @@
       {
         "name": "GCC",
         "includePath": [
-          
+          "${workspaceFolder}/Lab 2/*",
           "${workspaceFolder}/**"
         ],
         "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
