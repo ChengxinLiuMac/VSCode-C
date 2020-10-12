@@ -129,7 +129,6 @@ void
 end_packet_transmission_event2(Simulation_Run_Ptr simulation_run2, void * link)
 {
     Simulation_Run_Data_Ptr data2;
-    Simulation_Run_Data_Ptr next_data;
     Packet_Ptr this_packet, next_packet;
 
     TRACE(printf("End Of Packet.\n"););
@@ -166,7 +165,7 @@ end_packet_transmission_event2(Simulation_Run_Ptr simulation_run2, void * link)
 
     if(fifoqueue_size(data2->buffer) > 0) {
       next_packet = (Packet_Ptr) fifoqueue_get(data2->buffer);
-      start_transmission_on_link2(simulation_run2, next_packet, link);
+      start_transmission_on_link2(simulation_run2, next_packet, data2->link);
     }
 }
 
