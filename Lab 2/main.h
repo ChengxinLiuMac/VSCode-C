@@ -1,3 +1,4 @@
+
 /*
  * 
  * Simulation_Run of A Single Server Queueing System
@@ -34,17 +35,27 @@
 
 typedef struct _simulation_run_data_ 
 {
-  Fifoqueue_Ptr buffer;
-  Server_Ptr link;
-  int arrival_rate;
-  // long int over20_packet_count;
+  Fifoqueue_Ptr buffer1;
+  Fifoqueue_Ptr buffer2;
+  Fifoqueue_Ptr buffer3;
+  Server_Ptr link1;
+  Server_Ptr link2;
+  Server_Ptr link3;
   long int blip_counter;
-  long int arrival_count;
-  long int number_of_packets_processed;
-  double accumulated_delay;
-  double accumulated_delay_s1;
+  long int arrival_count1;
+  long int arrival_count2;
+  long int arrival_count3;
+  long int arrival_rate1;
+  long int arrival_rate2;
+  long int arrival_rate3;
+  long int number_of_packets_processed1;
+  long int number_of_packets_processed2;
+  long int number_of_packets_processed3;
+  double accumulated_delay1;
+  double accumulated_delay2;
+  double accumulated_delay3;
+  double p12;
   unsigned random_seed;
-
 } Simulation_Run_Data, * Simulation_Run_Data_Ptr;
 
 typedef enum {XMTTING, WAITING} Packet_Status;
@@ -54,7 +65,7 @@ typedef struct _packet_
   double arrive_time;
   double service_time;
   int source_id;
-  int source_server;
+  int packet_source;
   int destination_id;
   Packet_Status status;
 } Packet, * Packet_Ptr;
@@ -64,9 +75,10 @@ typedef struct _packet_
  */
 
 int
-main();
+main(void);
 
 /******************************************************************************/
 
 #endif /* main.h */
+
 

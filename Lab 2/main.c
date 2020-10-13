@@ -1,3 +1,4 @@
+
 /*
  * 
  * Simulation_Run of A Single Server Queueing System
@@ -43,15 +44,11 @@
  * event. When each run is finished, output is printed on the terminal.
  */
 
-int main()
+int
+main(void)
 {
   Simulation_Run_Ptr simulation_run;
-  Simulation_Run_Ptr simulation_run2;
-  // Simulation_Run_Ptr simulation_run3;
   Simulation_Run_Data data;
-  Simulation_Run_Data data2;
- // Simulation_Run_Data data3;
-
 
   /*
    * Declare and initialize our random number generator seeds defined in
@@ -60,105 +57,98 @@ int main()
 
   unsigned RANDOM_SEEDS[] = {RANDOM_SEED_LIST, 0};
   unsigned random_seed;
+  int j=0;
 
   /* 
    * Loop for each random number generator seed, doing a separate
    * simulation_run run for each.
    */
-  
 
-	for (double p12 = 0; p12 < 1; p12+=0.1) {
-	  int j = 0;
-		while ((random_seed = RANDOM_SEEDS[j++]) != 0) 
-	  	{
+  while ((random_seed = RANDOM_SEEDS[j++]) != 0) {
+      for (double i = 0.1; i < 1.0; i += 0.1) {
+          simulation_run = simulation_run_new(); /* Create a new simulation run. */
 
-			simulation_run = simulation_run_new(); /* Create a new simulation run. */
-			simulation_run2 = simulation_run_new(); /* Create a new simulation run. */
-			// simulation_run3 = simulation_run_new(); /* Create a new simulation run. */
+    /*
+     * Set the simulation_run data pointer to our data object.
+     */
 
-		  /*
-		   * Set the simulation_run data pointer to our data object.
-		   */
+          simulation_run_attach_data(simulation_run, (void*)&data);
 
-		  	simulation_run_attach_data(simulation_run, (void *)& data);
-		  	simulation_run_attach_data(simulation_run2, (void *)& data2);
-		  /*
-		   * Initialize the simulation_run data variables, declared in main.h.
-		   */
+          /*
+           * Initialize the simulation_run data variables, declared in main.h.
+           */
 
-			data.blip_counter = 0;
-			data.arrival_count = 0;
-      		// data.over20_packet_count = 0;
-      		data.number_of_packets_processed = 0;
-      		data.accumulated_delay = 0.0;
-			data.arrival_rate = 750;
-			data.random_seed = random_seed;
+          data.blip_counter = 0;
+          data.arrival_count1 = 0;
+          data.number_of_packets_processed1 = 0;
+          data.accumulated_delay1 = 0.0;
+          data.arrival_count2 = 0;
+          data.number_of_packets_processed2 = 0;
+          data.accumulated_delay2 = 0.0;
+          data.arrival_count3 = 0;
+          data.number_of_packets_processed3 = 0;
+          data.accumulated_delay3 = 0.0;
+          data.random_seed = random_seed;
+          data.arrival_rate1 = 750;
+          data.arrival_rate2 = 500;
+          data.arrival_rate3 = 500;
+          data.p12 = i;
+          /*
+           * Create the packet buffer and transmission link, declared in main.h.
+           */
 
-      		data2.blip_counter = 0;
-			data2.arrival_count = 0;
-      		// data2.over20_packet_count = 0;
-      		data2.number_of_packets_processed = 0;
-      		data2.accumulated_delay = 0.0;
-			data2.arrival_rate = 500;
-			data2.random_seed = random_seed;
-			
-			/*
-      		data3.blip_counter = 0;
-			data3.arrival_count = 0;
-      		// data3.over20_packet_count = 0;
-      		data3.number_of_packets_processed = 0;
-      		data3.accumulated_delay = 0.0;
-			data3.arrival_rate = 500;
-			data3.random_seed = random_seed;
-			*/
+          data.buffer1 = fifoqueue_new();
+          data.buffer2 = fifoqueue_new();
+          data.buffer3 = fifoqueue_new();
 
-			printf("current data1 rate is %d \n" , data.arrival_rate);
-      		printf("current data2 rate is %d \n" , data2.arrival_rate);
-      		// printf("current data3 rate is %d \n" , data3.arrival_rate);
+          data.link1 = server_new();
+          data.link2 = server_new();
+          data.link3 = server_new();
 
-		  /*
-		   * Create the packet buffer and transmission link, declared in main.h.
-		   */
+          /*
+           * Set the random number generator seed for this run.
+           */
 
-			data.buffer = fifoqueue_new();
-			data.link = server_new();
-      		data2.buffer = fifoqueue_new();
-			data2.link = server_new();
-      		//data3.buffer = fifoqueue_new();
-			//data3.link = server_new();
+          random_generator_initialize(random_seed);
 
-		  /*
-		   * Set the random number generator seed for this run.
-		   */
+          /*
+           * Schedule the initial packet arrival for the current clock time (= 0).
+           */
 
-			random_generator_initialize(random_seed);
+          schedule_packet_arrival_event1(simulation_run, simulation_run_get_time(simulation_run));
+          schedule_packet_arrival_event2(simulation_run, simulation_run_get_time(simulation_run));
+          schedule_packet_arrival_event3(simulation_run, simulation_run_get_time(simulation_run));
 
-		  /*
-		   * Schedule the initial packet arrival for the current clock time (= 0).
-		   */
+          /*
+           * Execute events until we are finished.
+           */
 
-			schedule_packet_arrival_event(simulation_run, simulation_run2, simulation_run_get_time(simulation_run));
+          while ((long)data.number_of_packets_processed1 + (long)data.number_of_packets_processed2 + (long)data.number_of_packets_processed3 < RUNLENGTH) {
+              simulation_run_execute_event(simulation_run);
+          }
 
-		  /*
-		   * Execute events until we are finished.
-		   */
-      		while (data2.number_of_packets_processed < RUNLENGTH)
-      		{
-				while (data.number_of_packets_processed < RUNLENGTH)
-				{
-					simulation_run_execute_event(simulation_run);
-				}
-				simulation_run_execute_event(simulation_run2);
-			}
+          /*
+           * Output results and clean up after ourselves.
+           */
 
-		  /*
-		   * Output results and clean up after ourselves.
-		   */
+          output_results(simulation_run);
+          cleanup_memory(simulation_run);
+      }
+    
+  }
 
-			output_results(simulation_run);
-			cleanup_memory(simulation_run);
-  		}
-	}
-	getchar();   /* Pause before finishing. */
-  	return 0;
+  getchar();   /* Pause before finishing. */
+  return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+

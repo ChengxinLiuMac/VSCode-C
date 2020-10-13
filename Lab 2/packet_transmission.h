@@ -1,3 +1,4 @@
+
 /*
  * 
  * Simulation_Run of A Single Server Queueing System
@@ -36,22 +37,35 @@
  */
 
 void
-start_transmission_on_link(Simulation_Run_Ptr, Simulation_Run_Ptr, Packet_Ptr, Server_Ptr);
+start_transmission_on_link1(Simulation_Run_Ptr, Packet_Ptr, Server_Ptr);
 
 void
 start_transmission_on_link2(Simulation_Run_Ptr, Packet_Ptr, Server_Ptr);
 
 void
-end_packet_transmission_event(Simulation_Run_Ptr, Simulation_Run_Ptr, void*);
+start_transmission_on_link3(Simulation_Run_Ptr, Packet_Ptr, Server_Ptr);
 
 void
-end_packet_transmission_event2(Simulation_Run_Ptr, void*);
+end_link1_packet_transmission_event(Simulation_Run_Ptr, void*); 
+
+void
+end_link2_packet_transmission_event(Simulation_Run_Ptr, void*);
+
+void
+end_link3_packet_transmission_event(Simulation_Run_Ptr, void*);
 
 double
-get_packet_transmission_time(void);
+get_link1_packet_transmission_time(void);
+
+double
+get_link2_packet_transmission_time(void);
+
+double
+get_link3_packet_transmission_time(void);
 
 /******************************************************************************/
 
 #endif /* packet_transmission.h */
+
 
 

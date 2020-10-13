@@ -1,3 +1,4 @@
+
 /*
  * 
  * Simulation of A Single Server Queueing System
@@ -27,23 +28,25 @@
 
 /******************************************************************************/
 
-
-#define PACKET_LENGTH 1000 /* bits */
-// #define PACKET_LENGTH 1 /* bits */
-#define LINK_BIT_RATE 1e6 /* Link1 bits per second */
-#define LINK2_BIT_RATE 2e6 /* Link2 bits per second */
-#define LINK3_BIT_RATE 3e6 /* Link3 bits per second */
-// #define RUNLENGTH 10 /* packets */
+#define PACKET_ARRIVAL_RATE 400 /* packets per second */
+#define PACKET_LENGTH 1e3 /* bits */
+#define LINK_1_BIT_RATE 2000000 /* bits per second */
+#define LINK_2_BIT_RATE 1e6 /* bits per second */
+#define LINK_3_BIT_RATE 1e6 /* bits per second */
 #define RUNLENGTH 10e6 /* packets */
 
 /* Comma separated list of random seeds to run. */
-#define RANDOM_SEED_LIST 400022365
+#define RANDOM_SEED_LIST 400060481
 
-#define PACKET_XMT_TIME ((double) PACKET_LENGTH/LINK_BIT_RATE)
+#define LINK_1_PACKET_XMT_TIME ((double) PACKET_LENGTH/LINK_1_BIT_RATE)
+#define LINK_2_PACKET_XMT_TIME ((double) PACKET_LENGTH/LINK_2_BIT_RATE)
+#define LINK_3_PACKET_XMT_TIME ((double) PACKET_LENGTH/LINK_3_BIT_RATE)
+
 #define BLIPRATE (RUNLENGTH/1000)
 
 /******************************************************************************/
 
 #endif /* simparameters.h */
+
 
 

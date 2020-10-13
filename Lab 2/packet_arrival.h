@@ -1,3 +1,4 @@
+
 /*
  * 
  * Simulation_Run of A Single Server Queueing System
@@ -36,19 +37,27 @@
  */
 
 void
-packet_arrival_event(Simulation_Run_Ptr, Simulation_Run_Ptr, void* ,int);
-
-void packet_arrival_event2(Simulation_Run_Ptr, void *, int);
+packet_arrival_event1(Simulation_Run_Ptr, void*);
 
 long
-schedule_packet_arrival_event(Simulation_Run_Ptr, Simulation_Run_Ptr, double);
+schedule_packet_arrival_event1(Simulation_Run_Ptr, double);
+
+void
+packet_arrival_event2(Simulation_Run_Ptr, void*);
 
 long
 schedule_packet_arrival_event2(Simulation_Run_Ptr, double);
 
+void
+packet_arrival_event3(Simulation_Run_Ptr, void*);
+
+long
+schedule_packet_arrival_event3(Simulation_Run_Ptr, double);
+
 /******************************************************************************/
 
 #endif /* packet_arrival.h */
+
 
 
 
